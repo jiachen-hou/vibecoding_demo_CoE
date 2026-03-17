@@ -33,6 +33,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState('Admin User');
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -92,7 +93,7 @@ export default function App() {
               <div className="overflow-hidden">
                 {isLoggedIn ? (
                   <>
-                    <p className="text-sm font-medium text-white truncate">Admin User</p>
+                    <p className="text-sm font-medium text-white truncate">{currentUser}</p>
                     <p className="text-xs text-slate-400 truncate">CoE Manager</p>
                   </>
                 ) : (
@@ -151,7 +152,8 @@ export default function App() {
       <LoginModal 
         isOpen={showLoginModal} 
         onClose={() => setShowLoginModal(false)} 
-        onLogin={() => {
+        onLogin={(username) => {
+          if (username) setCurrentUser(username);
           setIsLoggedIn(true);
           setShowLoginModal(false);
         }} 
